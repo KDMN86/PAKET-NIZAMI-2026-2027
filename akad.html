@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Akad & Perjanjian - NIZAMI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
+    <style>
+      /* === 1. BASIS STYLE (DARK THEME) === */
+      * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+      
+      body {
+        background-color: #0a0a0a;
+        /* Background gradient premium */
+        background-image: radial-gradient(circle at top center, #1a4d2e 0%, transparent 50%),
+                          radial-gradient(circle at bottom right, #0f2b18 0%, transparent 40%);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        overflow-x: hidden;
+      }
+
+      /* === 2. DEKORASI LAMPU === */
+      .decor-lamp {
+        position: absolute;
+        width: 70px;
+        opacity: 0.6;
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.2));
+        z-index: -1;
+      }
+      .decor-left { top: -10px; left: 0; }
+      .decor-right { top: -10px; right: 0; }
+
+      /* === 3. HEADER === */
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 10px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .title-logo {
+        height: 60px; /* Logo Nizami */
+        margin-bottom: 15px;
+        filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+      }
+
+      .header-desc {
+        color: #ccc;
+        font-size: 0.9rem;
+        max-width: 400px;
+        margin: 0 auto;
+        line-height: 1.5;
+      }
+
+      /* === 4. CONTAINER KARTU AKAD === */
+      .akad-container {
+        background: rgba(30, 30, 30, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 215, 0, 0.2); /* Border Emas Tipis */
+        border-radius: 20px;
+        padding: 20px;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        margin-bottom: 30px;
+        animation: slideUp 0.5s ease-out;
+      }
+
+      @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+      .akad-label {
+        background: rgba(255, 215, 0, 0.1);
+        color: #ffd700;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 15px;
+        border: 1px solid rgba(255, 215, 0, 0.3);
+      }
+
+      /* Image Akad */
+      .akad-image-wrapper {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 2px solid rgba(255,255,255,0.1);
+        position: relative;
+        cursor: pointer; /* Indikasi bisa diklik */
+      }
+      
+      .akad-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s;
+      }
+
+      .akad-image-wrapper:hover .akad-img {
+        transform: scale(1.02);
+      }
+
+      .click-hint {
+        margin-top: 10px;
+        font-size: 0.8rem;
+        color: #888;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
+
+      /* === 5. ACTION BUTTONS === */
+      .action-area {
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 15px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-decoration: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .btn:active { transform: scale(0.98); }
+
+      /* Tombol Bertanya (WA) */
+      .btn-ask {
+        background: linear-gradient(90deg, #28a745, #218838);
+        color: white;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-ask::after {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        animation: shine 3s infinite;
+      }
+      @keyframes shine { 100% { left: 100%; } }
+
+      /* Tombol Kembali */
+      .btn-back {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ccc;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .btn-back:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+      }
+
+      /* === 6. MODAL ZOOM (Copied Logic from Owner Page) === */
+      .preview-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .preview-overlay.show { display: flex; }
+      
+      #preview-img {
+        max-width: 95%;
+        max-height: 85vh;
+        border-radius: 5px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      }
+      .close-btn {
+        position: absolute;
+        top: 20px; right: 20px;
+        font-size: 40px; color: #fff;
+        cursor: pointer;
+        background: none; border: none;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <img src="image/lampu.png" class="decor-lamp decor-left" alt="" />
+    <img src="image/lampu.png" class="decor-lamp decor-right" alt="" />
+
+    <header>
+      <img src="image/logo-nizami.svg" alt="Paket NIZAMI" class="title-logo" />
+      <p class="header-desc">
+        Mohon pelajari akad di bawah ini sebelum bergabung agar transaksi kita menjadi berkah.
+      </p>
+    </header>
+
+    <div class="akad-container">
+      <span class="akad-label">📜 Dokumen Resmi 2026-2027</span>
+      
+      <div class="akad-image-wrapper">
+        <img src="image/akadnew.png" alt="Isi Akad Nizami" class="akad-img zoomable" />
+      </div>
+      
+      <div class="click-hint">
+        <i class="fas fa-search-plus"></i> Klik gambar untuk memperbesar
+      </div>
+    </div>
+
+    <div class="action-area">
+      <a href="https://wa.me/628122261036?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20mengenai%20detail%20Akad%20Paket%20NIZAMI..." class="btn btn-ask">
+        <i class="fab fa-whatsapp" style="font-size:1.3rem;"></i> Bertanya ke Owner
+      </a>
+
+      <a href="index.html" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> Kembali ke Menu Utama
+      </a>
+    </div>
+
+    <div id="image-preview" class="preview-overlay">
+      <button class="close-btn">&times;</button>
+      <img id="preview-img" src="" alt="Preview">
+    </div>
+
+    <script src="script.js"></script>
+
+  </body>
+</html>

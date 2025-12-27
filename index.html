@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Paket NIZAMI 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* === 1. MODERN DARK THEME BASE === */
+      * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+      
+      body {
+        background-color: #0a0a0a; /* Hitam Pekat Premium */
+        background-image: radial-gradient(circle at top right, #1a4d2e 0%, transparent 40%),
+                          radial-gradient(circle at bottom left, #0f2b18 0%, transparent 40%);
+        color: #fff;
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+        padding-bottom: 80px; /* Space untuk bottom nav/button */
+      }
+
+      /* === 2. HEADER SECTION === */
+      header {
+        padding: 25px 20px 10px;
+        text-align: center;
+      }
+
+      .logo-area {
+        margin-bottom: 10px;
+      }
+      
+      .title-logo {
+        height: 50px; /* Sesuaikan ukuran logo */
+        width: auto;
+      }
+
+      .welcome-text {
+        font-size: 0.9rem;
+        color: #b0b0b0;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .start-date-badge {
+        background: rgba(40, 167, 69, 0.15);
+        color: #4ade80;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border: 1px solid rgba(40, 167, 69, 0.3);
+        display: inline-block;
+      }
+
+      /* === 3. DECORATION === */
+      .decor-lamp {
+        position: absolute;
+        width: 60px;
+        opacity: 0.8;
+        filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+        z-index: -1;
+      }
+      .decor-left { top: -10px; left: 10px; }
+      .decor-right { top: -10px; right: 10px; }
+
+      /* === 4. GRID MENU (APP STYLE) === */
+      .app-container {
+        padding: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .section-title::before {
+        content: '';
+        width: 4px;
+        height: 18px;
+        background: #28a745;
+        border-radius: 2px;
+        display: block;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 Kolom */
+        gap: 15px;
+      }
+
+      .menu-card {
+        background: rgba(30, 30, 30, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 20px 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.2s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 110px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .menu-card:active { transform: scale(0.96); }
+      .menu-card:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255,255,255,0.2); }
+
+      .menu-icon { font-size: 2rem; margin-bottom: 8px; }
+      .menu-label { font-size: 0.9rem; font-weight: 500; color: #e0e0e0; }
+
+      /* === 5. AKAD SPECIAL BUTTON (ANIMATED) === */
+      .akad-card {
+        grid-column: span 2; /* Full width */
+        background: linear-gradient(135deg, #3a2c0f, #1a1a1a);
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        height: auto;
+        padding: 15px;
+        flex-direction: row;
+        gap: 15px;
+        animation: glowPulse 2s infinite;
+      }
+
+      @keyframes glowPulse {
+        0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.2); }
+        70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+      }
+
+      .akad-icon { font-size: 1.8rem; }
+      .akad-text { text-align: left; flex: 1; }
+      .akad-title { font-weight: bold; color: #ffd700; font-size: 1rem; }
+      .akad-desc { font-size: 0.75rem; color: #ccc; }
+
+      /* === 6. ACTION BUTTONS (CEK & KALKULATOR) === */
+      .action-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 25px;
+      }
+      
+      .action-btn {
+        padding: 15px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .btn-cek { background: #0056b3; box-shadow: 0 4px 15px rgba(0, 86, 179, 0.4); }
+      .btn-kalk { background: #a77428; box-shadow: 0 4px 15px rgba(167, 116, 40, 0.4); }
+
+      /* === 7. TOMBOL GABUNG (FLOATING / FIXED) === */
+      .fab-join {
+        position: fixed;
+        bottom: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(90deg, #1e7e34, #28a745);
+        color: white;
+        padding: 14px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        box-shadow: 0 10px 25px rgba(40, 167, 69, 0.5);
+        z-index: 100;
+        border: 2px solid rgba(255,255,255,0.2);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 90%;
+        max-width: 400px;
+        justify-content: center;
+        animation: floatUp 1s ease-out;
+      }
+
+      @keyframes floatUp { from { transform: translate(-50%, 100px); } to { transform: translate(-50%, 0); } }
+
+      /* === 8. MODAL (POP-UP) STYLES === */
+      .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+        display: none; /* Hidden default */
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .modal-card {
+        background: #1a1a1a;
+        border: 1px solid #333;
+        border-radius: 20px;
+        padding: 25px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        position: relative;
+        animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+      .modal-title { font-size: 1.2rem; margin-bottom: 10px; color: #fff; }
+      .modal-desc { font-size: 0.9rem; color: #aaa; margin-bottom: 20px; }
+      
+      .btn-close {
+        background: #333;
+        color: #fff;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      /* Form Styles */
+      .form-group { text-align: left; margin-bottom: 15px; }
+      .form-label { display: block; font-size: 0.85rem; color: #ccc; margin-bottom: 5px; }
+      .form-input {
+        width: 100%;
+        padding: 12px;
+        background: #2a2a2a;
+        border: 1px solid #444;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 1rem;
+        outline: none;
+      }
+      .form-input:focus { border-color: #28a745; background: #333; }
+      
+      .btn-submit {
+        width: 100%;
+        background: #28a745;
+        color: #fff;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      /* Close X top right */
+      .close-x {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        color: #888;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <div class="logo-area">
+        <img src="image/logo-nizami.svg" alt="Paket NIZAMI" class="title-logo" />
+      </div>
+      <p class="welcome-text">
+        Tabungan Lebaran Terpercaya.<br>Rencanakan kebahagiaan 2026-2027 Anda.
+      </p>
+      <div class="start-date-badge">Start: 1 April 2026</div>
+    </header>
+
+    <img src="image/lampu.png" class="decor-lamp decor-left" alt="" />
+    <img src="image/lampu.png" class="decor-lamp decor-right" alt="" />
+
+    <div class="app-container">
+      
+      <div class="section-title">Penting</div>
+      <div class="menu-grid" style="grid-template-columns: 1fr; margin-bottom: 20px;">
+        <div class="menu-card akad-card" onclick="window.location.href='akad.html'">
+          <div class="akad-icon">📜</div>
+          <div class="akad-text">
+            <div class="akad-title">Akad & Perjanjian</div>
+            <div class="akad-desc">Wajib dibaca sebelum bergabung demi keberkahan bersama.</div>
+          </div>
+          <div style="font-size:1.2rem; color:#ffd700;">➔</div>
+        </div>
+      </div>
+
+      <div class="section-title">Pilihan Paket</div>
+      <div class="menu-grid">
+        <div class="menu-card" onclick="window.location.href='mom.html'">
+          <div class="menu-icon">👩‍🍼</div>
+          <div class="menu-label">Paket MOM</div>
+        </div>
+        <div class="menu-card" onclick="window.location.href='kids.html'">
+          <div class="menu-icon">🧸</div>
+          <div class="menu-label">Paket Kids</div>
+        </div>
+        <div class="menu-card" onclick="window.location.href='cookies.html'">
+          <div class="menu-icon">🍪</div>
+          <div class="menu-label">Cookies</div>
+        </div>
+        <div class="menu-card" onclick="window.location.href='mingguan.html'">
+          <div class="menu-icon">📅</div>
+          <div class="menu-label">Mingguan</div>
+        </div>
+      </div>
+      
+      <div class="menu-grid" style="margin-top: 15px;">
+        <div class="menu-card" onclick="window.location.href='gallery.html'">
+          <div class="menu-icon">📸</div>
+          <div class="menu-label">Galeri</div>
+        </div>
+        <div class="menu-card" onclick="window.location.href='owner.html'">
+          <div class="menu-icon">👤</div>
+          <div class="menu-label">Owner</div>
+        </div>
+      </div>
+
+      <div class="action-grid">
+        <a href="cek-status.html" class="action-btn btn-cek">
+          🔍 Cek Status
+        </a>
+        <a href="kalkulator.html" class="action-btn btn-kalk">
+          🧮 Kalkulator
+        </a>
+      </div>
+
+      <div style="height: 60px;"></div>
+    </div>
+
+    <button class="fab-join" onclick="openModal('joinModal')">
+      <span>🚀</span> Gabung Sekarang
+    </button>
+
+    <div id="welcomeModal" class="modal-overlay">
+      <div class="modal-card">
+        <h2 class="modal-title">Selamat Datang! 👋</h2>
+        <p class="modal-desc">
+          Selamat datang di Aplikasi <strong>Paket NIZAMI</strong>.<br>
+          Mari persiapkan kebutuhan Lebaran 2026-2027 Anda bersama kami dengan amanah.
+        </p>
+        <button class="btn-close" onclick="closeModal('welcomeModal')">Mulai Jelajah</button>
+      </div>
+    </div>
+
+    <div id="joinModal" class="modal-overlay">
+      <div class="modal-card" style="text-align: left;">
+        <button class="close-x" onclick="closeModal('joinModal')">&times;</button>
+        <h3 class="modal-title" style="text-align: center;">Formulir Pendaftaran</h3>
+        <p class="modal-desc" style="text-align: center; margin-bottom:15px;">Isi data untuk terhubung ke WhatsApp Admin.</p>
+        
+        <form id="formDaftar" onsubmit="kirimKeWA(event)">
+          <div class="form-group">
+            <label class="form-label">Nama Lengkap</label>
+            <input type="text" id="nama" class="form-input" placeholder="Contoh: Bu Siti" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nomor HP / WA</label>
+            <input type="tel" id="hp" class="form-input" placeholder="08xxxxxxxx" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Alamat Domisili</label>
+            <input type="text" id="alamat" class="form-input" placeholder="Desa/Kecamatan..." required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mitra (Opsional)</label>
+            <input type="text" id="mitra" class="form-input" placeholder="Nama Mitra (jika ada)">
+          </div>
+
+          <button type="submit" class="btn-submit">Kirim Pendaftaran 📤</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      // 1. Logic Welcome Pop-up
+      window.onload = function() {
+        // Cek apakah user baru saja buka (bisa pakai sessionStorage kalau mau muncul sekali per sesi)
+        // Untuk demo, kita munculkan selalu atau cek session
+        if(!sessionStorage.getItem('welcomeShown')) {
+           document.getElementById('welcomeModal').style.display = 'flex';
+           sessionStorage.setItem('welcomeShown', 'true');
+        }
+      };
+
+      // Fungsi Buka/Tutup Modal
+      function openModal(id) {
+        document.getElementById(id).style.display = 'flex';
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+      }
+
+      // Tutup modal jika klik di luar area kartu
+      window.onclick = function(event) {
+        if (event.target.classList.contains('modal-overlay')) {
+          event.target.style.display = 'none';
+        }
+      }
+
+      // 2. Logic Kirim ke WhatsApp
+      function kirimKeWA(e) {
+        e.preventDefault();
+        
+        const nama = document.getElementById('nama').value;
+        const hp = document.getElementById('hp').value;
+        const alamat = document.getElementById('alamat').value;
+        const mitra = document.getElementById('mitra').value || '-';
+
+        // Nomor WA Owner (Ganti dengan nomor asli Anda, format 62...)
+        const nomorOwner = '628122261036'; 
+
+        const text = `Halo Admin Paket NIZAMI, saya ingin bergabung.%0A%0A` +
+                     `📝 *DATA PENDAFTARAN*:%0A` +
+                     `Nama: ${nama}%0A` +
+                     `No HP: ${hp}%0A` +
+                     `Alamat: ${alamat}%0A` +
+                     `Mitra: ${mitra}%0A%0A` +
+                     `Mohon info selanjutnya. Terima kasih.`;
+
+        const url = `https://wa.me/${nomorOwner}?text=${text}`;
+        
+        // Buka WA
+        window.open(url, '_blank');
+        closeModal('joinModal');
+      }
+    </script>
+  </body>
+</html>

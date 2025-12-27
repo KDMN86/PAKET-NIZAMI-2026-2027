@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalender Setoran 2026-2027</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* === RESET & BASIC STYLE === */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      body {
+        /* Background Gambar & Warna Gelap */
+        background-color: #000;
+        background-image: url('image/bg2.png'); /* Pastikan file ini ada */
+        background-repeat: no-repeat;
+        background-position: bottom left;
+        background-size: 300px auto;
+        min-height: 100vh;
+        color: #fff;
+        padding: 20px 10px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      /* === INFO PESERTA CARD === */
+      .info-container {
+        background: rgba(30, 30, 30, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        max-width: 500px;
+        margin: 0 auto 30px;
+        padding: 20px;
+        border-radius: 16px;
+        text-align: center;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      }
+
+      .info-container h2 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+        color: #fff;
+      }
+      .info-detail {
+        font-size: 0.9rem;
+        color: #ccc;
+        margin-bottom: 15px;
+      }
+      .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        background: #007bff;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      /* === TOMBOL KEMBALI === */
+      .btn-kembali {
+        display: inline-block;
+        padding: 10px 25px;
+        background: linear-gradient(90deg, #dc3545, #c82333);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: bold;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .btn-kembali:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+      }
+
+      /* === GRID KALENDER === */
+      #kalender-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* === KARTU BULAN === */
+      .bulan-card {
+        background: rgba(20, 20, 20, 0.85);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        width: 100%;
+        max-width: 350px; /* Ukuran kartu bulan */
+        padding: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s;
+      }
+
+      .bulan-card:hover {
+        border-color: rgba(40, 167, 69, 0.5);
+      }
+
+      .judul-bulan {
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #7aeaf7;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 8px;
+      }
+
+      /* === TABEL KALENDER === */
+      table {
+        width: 100%;
+        border-collapse: separate; 
+        border-spacing: 2px; /* Jarak antar kotak tanggal */
+      }
+
+      th {
+        font-size: 0.8rem;
+        color: #aaa;
+        padding-bottom: 5px;
+        font-weight: normal;
+      }
+
+      td {
+        height: 35px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 0.9rem;
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.05); /* Warna default kotak tanggal */
+        color: #888;
+        cursor: default;
+        position: relative;
+      }
+
+      /* TANGGAL AKTIF (HIJAU) */
+      td.paid {
+        background-color: #28a745; /* Hijau Sukses */
+        color: #fff;
+        font-weight: bold;
+        box-shadow: 0 0 8px rgba(40, 167, 69, 0.6);
+        border: 1px solid #28a745;
+      }
+
+      /* Tanggal masa depan (belum bayar) */
+      td.unpaid {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      /* Hari Libur (Minggu) - Opsional styling */
+      th:first-child { color: #ff6b6b; } 
+
+      /* Responsive Mobile */
+      @media (max-width: 480px) {
+        h1 { font-size: 1.5rem; }
+        .bulan-card { max-width: 100%; }
+        td { height: 40px; font-size: 0.85rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Kalender Setoran</h1>
+
+    <div class="info-container" id="pesertaInfo">
+      <p>Memuat data...</p>
+    </div>
+
+    <div id="kalender-container"></div>
+
+    <script>
+      // === 1. KONFIGURASI ===
+      // Mulai: 1 April 2026
+      const START_DATE = new Date('2026-04-01');
+      
+      // Default durasi paket
+      const DEFAULT_DAYS = 330; 
+      // Paket pendek (opsional, sesuaikan dengan aturan Anda)
+      const SHORT_PACKAGES = ['mingguan', 'munggah 5000', 'munggah hemat'];
+
+      // === 2. AMBIL DATA DARI URL ===
+      const params = new URLSearchParams(window.location.search);
+      const idPeserta = params.get('id') || '-';
+      const namaPeserta = params.get('nama') || 'Peserta';
+      const jumlahSetoran = Number(params.get('jumlah')) || 0;
+      const paket = params.get('paket') || 'Reguler';
+
+      // === 3. TAMPILKAN INFO PESERTA ===
+      const infoContainer = document.getElementById('pesertaInfo');
+      infoContainer.innerHTML = `
+        <span class="badge">${paket}</span>
+        <h2>${namaPeserta}</h2>
+        <p class="info-detail">ID: ${idPeserta}</p>
+        <div style="display:flex; justify-content:space-around; align-items:center; margin-bottom:15px; font-size:0.9rem;">
+            <div>
+                <span style="display:block; font-size:1.5rem; font-weight:bold; color:#28a745;">${jumlahSetoran}</span>
+                <span>Terbayar</span>
+            </div>
+            <div>
+                 <span style="display:block; font-size:1.5rem; font-weight:bold; color:#aaa;">?</span>
+                 <span>Target Hari</span>
+            </div>
+        </div>
+        <button class="btn-kembali" onclick="history.back()">⬅ Kembali</button>
+      `;
+
+      // === 4. LOGIKA GENERATE KALENDER ===
+      
+      // Tentukan total hari berdasarkan paket
+      const paketLower = paket.toLowerCase();
+      const totalHariTarget = SHORT_PACKAGES.includes(paketLower) ? 300 : 330;
+      
+      // Update tampilan target hari di info panel
+      infoContainer.querySelector('div > div:last-child span:first-child').textContent = totalHariTarget;
+
+      const container = document.getElementById('kalender-container');
+      
+      let currentDateIterator = new Date(START_DATE);
+      let daysCounted = 0; // Menghitung berapa hari paket yang sudah dilewati
+
+      // Loop terus sampai target hari tercapai (300 atau 330)
+      // Kita batasi loop max 24 bulan agar tidak infinite loop jika ada error
+      let safeGuard = 0;
+
+      while (daysCounted < totalHariTarget && safeGuard < 24) {
+        safeGuard++;
+
+        const currentMonth = currentDateIterator.getMonth();
+        const currentYear = currentDateIterator.getFullYear();
+        
+        // Buat Wrapper Kartu Bulan
+        const card = document.createElement('div');
+        card.className = 'bulan-card';
+
+        // Judul Bulan (Contoh: APRIL 2026)
+        const monthName = new Intl.DateTimeFormat('id-ID', { month: 'long' }).format(currentDateIterator);
+        const title = document.createElement('div');
+        title.className = 'judul-bulan';
+        title.textContent = `${monthName} ${currentYear}`;
+        card.appendChild(title);
+
+        // Buat Tabel
+        const table = document.createElement('table');
+        const thead = document.createElement('thead');
+        thead.innerHTML = `
+            <tr>
+                <th>Mg</th><th>Sn</th><th>Sl</th><th>Rb</th><th>Km</th><th>Jm</th><th>Sb</th>
+            </tr>
+        `;
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        let row = document.createElement('tr');
+
+        // Cari tahu tanggal 1 bulan ini jatuh hari apa (0=Minggu, 1=Senin, ...)
+        const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+        const startingDay = firstDayOfMonth.getDay();
+
+        // Cari tahu jumlah hari dalam bulan ini
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+        // 1. Isi kotak kosong sebelum tanggal 1
+        for (let i = 0; i < startingDay; i++) {
+            row.appendChild(document.createElement('td'));
+        }
+
+        // 2. Isi tanggal 1 sampai akhir bulan
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dateCheck = new Date(currentYear, currentMonth, day);
+            const td = document.createElement('td');
+            td.textContent = day;
+
+            // Logic Pewarnaan:
+            // Hanya hitung hari jika tanggal >= START_DATE (1 April 2026)
+            if (dateCheck >= START_DATE && daysCounted < totalHariTarget) {
+                daysCounted++; // Ini adalah hari ke-N dalam paket
+
+                if (daysCounted <= jumlahSetoran) {
+                    td.className = 'paid'; // Hijau (Sudah bayar)
+                } else {
+                    td.className = 'unpaid'; // Putih transparan (Belum bayar)
+                }
+            } else {
+                // Tanggal sebelum mulai paket (misal 1-10 April 2025 jika start 11 April)
+                // Atau tanggal setelah target 330 hari selesai
+                td.style.opacity = '0.3'; // Redupkan
+                td.style.background = 'transparent';
+            }
+
+            row.appendChild(td);
+
+            // Ganti baris jika Sabtu (indeks 6 di loop visual, atau modulus 7)
+            // Karena kita sudah push 'startingDay' sel kosong, total sel = startingDay + day
+            if ((startingDay + day) % 7 === 0) {
+                tbody.appendChild(row);
+                row = document.createElement('tr');
+            }
+        }
+
+        // 3. Isi sisa kotak kosong di baris terakhir (jika ada)
+        if (row.children.length > 0) {
+            tbody.appendChild(row);
+        }
+
+        table.appendChild(tbody);
+        card.appendChild(table);
+        container.appendChild(card);
+
+        // Maju ke bulan berikutnya untuk loop while berikutnya
+        currentDateIterator.setMonth(currentDateIterator.getMonth() + 1);
+        currentDateIterator.setDate(1); // Reset ke tanggal 1 bulan depan
+      }
+
+    </script>
+  </body>
+</html>

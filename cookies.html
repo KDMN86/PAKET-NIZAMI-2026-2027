@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paket Cookies Premium - NIZAMI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playball&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
+    <style>
+      /* === 1. BASIS STYLE (DARK THEME) === */
+      * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+      
+      body {
+        background-color: #0a0a0a;
+        /* Background gradient hangat (coklat keemasan gelap) untuk nuansa kue */
+        background-image: radial-gradient(circle at top center, #3e2723 0%, transparent 60%),
+                          radial-gradient(circle at bottom right, #1a1a1a 0%, transparent 40%);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        overflow-x: hidden;
+      }
+
+      /* === 2. DEKORASI LAMPU === */
+      .decor-lamp {
+        position: absolute;
+        width: 70px;
+        opacity: 0.8;
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+        z-index: -1;
+      }
+      .decor-left { top: -10px; left: 10px; }
+      .decor-right { top: -10px; right: 10px; }
+
+      /* === 3. HEADER === */
+      header {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 25px;
+        z-index: 1;
+      }
+
+      h1 {
+        font-family: 'Playball', cursive; /* Font dekoratif untuk judul */
+        font-size: 2.5rem;
+        color: #ffd700; /* Warna Emas */
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        margin-bottom: 5px;
+      }
+
+      .subtitle {
+        color: #ccc;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
+
+      /* === 4. PRODUCT SHOWCASE CARD === */
+      .product-card {
+        background: rgba(30, 30, 30, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        border-radius: 24px;
+        padding: 25px;
+        width: 100%;
+        max-width: 450px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Efek kilau pada kartu */
+      .product-card::after {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%;
+        width: 200%; height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+        pointer-events: none;
+      }
+
+      .img-frame {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      }
+
+      .product-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.4s ease;
+        cursor: pointer;
+      }
+
+      .product-img:hover {
+        transform: scale(1.05);
+      }
+
+      .zoom-hint {
+        position: absolute;
+        bottom: 10px; right: 10px;
+        background: rgba(0,0,0,0.6);
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        pointer-events: none;
+      }
+
+      .desc-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #ddd;
+        margin-bottom: 20px;
+      }
+
+      /* List Keunggulan */
+      .features {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+      }
+      .feature-badge {
+        background: rgba(255, 215, 0, 0.1);
+        color: #ffd700;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* === 5. ACTION BUTTONS === */
+      .btn-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .btn {
+        padding: 14px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .btn-order {
+        background: linear-gradient(90deg, #d4af37, #b8860b); /* Gold Gradient */
+        color: #000;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      }
+      .btn-order:hover {
+        background: linear-gradient(90deg, #ffd700, #daa520);
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .btn-back {
+        background: rgba(255, 255, 255, 0.05);
+        color: #aaa;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .btn-back:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      /* Footer Text */
+      .footer-note {
+        margin-top: 30px;
+        font-size: 0.8rem;
+        color: #666;
+        text-align: center;
+      }
+
+      /* === 6. MODAL ZOOM === */
+      .preview-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .preview-overlay.show { display: flex; }
+      
+      #preview-img {
+        max-width: 90%;
+        max-height: 80vh;
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.8);
+      }
+      .close-btn {
+        position: absolute;
+        top: 20px; right: 20px;
+        font-size: 40px; color: #fff;
+        cursor: pointer;
+        background: none; border: none;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <img src="image/lampu.png" class="decor-lamp decor-left" alt="" />
+    <img src="image/lampu.png" class="decor-lamp decor-right" alt="" />
+
+    <header>
+      <h1>Paket Cookies</h1>
+      <p class="subtitle">Sajian Spesial Lebaran 2026-2027</p>
+    </header>
+
+    <div class="product-card">
+      <div class="img-frame">
+        <img src="image/cookies1.jpg" alt="Cookies Nizami" class="product-img zoomable" />
+        <div class="zoom-hint"><i class="fas fa-search-plus"></i> Zoom</div>
+      </div>
+
+      <div class="features">
+        <span class="feature-badge"><i class="fas fa-star"></i> Premium</span>
+        <span class="feature-badge"><i class="fas fa-heart"></i> Homemade</span>
+        <span class="feature-badge"><i class="fas fa-check-circle"></i> Halal</span>
+      </div>
+
+      <p class="desc-text">
+        Nikmati kelezatan kue kering premium dari NIZAMI. 
+        Dibuat dengan bahan pilihan berkualitas tinggi untuk menyempurnakan 
+        momen kebersamaan di hari raya Idul Fitri.
+      </p>
+
+      <div class="btn-container">
+        <a href="https://wa.me/628122261036?text=Halo%20Admin%2C%20saya%20tertarik%20dengan%20Paket%20Cookies%20Nizami..." class="btn btn-order">
+          <i class="fab fa-whatsapp" style="font-size:1.2rem;"></i> Pesan Sekarang
+        </a>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <a href="index.html" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> Kembali ke Menu
+      </a>
+    </div>
+
+    <div class="footer-note">
+      Persiapkan Lebaran 2026-2027 dari sekarang.
+    </div>
+
+    <div id="image-preview" class="preview-overlay">
+      <button class="close-btn">&times;</button>
+      <img id="preview-img" src="" alt="Preview">
+    </div>
+
+    <script src="script.js"></script>
+
+  </body>
+</html>
